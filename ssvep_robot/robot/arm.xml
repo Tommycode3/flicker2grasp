@@ -1,0 +1,81 @@
+<!-- ssvep-robot arm: 4-DoF (yaw + 3 pitch) arm with a 2-finger slide gripper.
+     Written from scratch for this repo (MIT). Units: metres, kg, radians. -->
+<mujoco model="ssvep_arm">
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.002" integrator="implicitfast" gravity="0 0 -9.81"/>
+
+  <visual>
+    <headlight ambient="0.35 0.35 0.35" diffuse="0.6 0.6 0.6"/>
+    <global offwidth="640" offheight="480"/>
+  </visual>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" rgb1=".92 .92 .92" rgb2=".82 .82 .82" width="256" height="256"/>
+    <material name="floor" texture="grid" texrepeat="8 8"/>
+    <material name="link" rgba=".25 .35 .55 1"/>
+    <material name="joint" rgba=".15 .15 .15 1"/>
+  </asset>
+
+  <default>
+    <joint damping="8.0" armature="0.02"/>
+    <geom contype="0" conaffinity="0"/>
+    <position kp="150" forcerange="-60 60"/>
+  </default>
+
+  <worldbody>
+    <light pos="0.5 -0.5 1.5" dir="-0.3 0.3 -1"/>
+    <geom name="floor" type="plane" size="1 1 0.01" material="floor"/>
+
+    <!-- drop-off bin (static, visual only) -->
+    <body name="bin" pos="0.30 -0.20 0">
+      <geom type="box" size="0.07 0.07 0.004" pos="0 0 0.004" rgba=".2 .6 .3 1"/>
+      <geom type="box" size="0.07 0.004 0.03" pos="0 0.066 0.03" rgba=".2 .6 .3 .6"/>
+      <geom type="box" size="0.07 0.004 0.03" pos="0 -0.066 0.03" rgba=".2 .6 .3 .6"/>
+      <geom type="box" size="0.004 0.07 0.03" pos="0.066 0 0.03" rgba=".2 .6 .3 .6"/>
+      <geom type="box" size="0.004 0.07 0.03" pos="-0.066 0 0.03" rgba=".2 .6 .3 .6"/>
+    </body>
+
+    <!-- cube: kinematic (mocap) body; attached to the gripper when grasped -->
+    <body name="cube" mocap="true" pos="0.40 0.10 0.05">
+      <geom type="box" size="0.02 0.02 0.02" rgba=".85 .3 .2 1"/>
+    </body>
+
+    <body name="base" pos="0 0 0">
+      <geom type="cylinder" size="0.06 0.03" pos="0 0 0.03" material="joint"/>
+      <body name="turret" pos="0 0 0.06" gravcomp="1">
+        <joint name="yaw" axis="0 0 1" range="-2.6 2.6"/>
+        <geom type="cylinder" size="0.04 0.04" pos="0 0 0.04" material="link" mass="1.0"/>
+        <body name="upper" pos="0 0 0.08" gravcomp="1">
+          <joint name="shoulder" axis="0 1 0" range="-1.6 1.6"/>
+          <geom type="capsule" fromto="0 0 0 0 0 0.30" size="0.025" material="link" mass="0.8"/>
+          <body name="fore" pos="0 0 0.30" gravcomp="1">
+            <joint name="elbow" axis="0 1 0" range="-0.1 2.7"/>
+            <geom type="capsule" fromto="0 0 0 0 0 0.28" size="0.02" material="link" mass="0.5"/>
+            <body name="hand" pos="0 0 0.28" gravcomp="1">
+              <joint name="wrist" axis="0 1 0" range="-2.2 2.2"/>
+              <geom type="box" size="0.015 0.04 0.03" pos="0 0 0.03" material="joint" mass="0.2"/>
+              <body name="finger_l" pos="0 0.02 0.07" gravcomp="1">
+                <joint name="finger_l" type="slide" axis="0 1 0" range="-0.015 0.01" damping="1"/>
+                <geom type="box" size="0.008 0.004 0.025" rgba=".7 .7 .7 1" mass="0.02"/>
+              </body>
+              <body name="finger_r" pos="0 -0.02 0.07" gravcomp="1">
+                <joint name="finger_r" type="slide" axis="0 -1 0" range="-0.015 0.01" damping="1"/>
+                <geom type="box" size="0.008 0.004 0.025" rgba=".7 .7 .7 1" mass="0.02"/>
+              </body>
+              <site name="ee" pos="0 0 0.08" size="0.006" rgba="1 1 0 1"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="a_yaw" joint="yaw"/>
+    <position name="a_shoulder" joint="shoulder"/>
+    <position name="a_elbow" joint="elbow"/>
+    <position name="a_wrist" joint="wrist"/>
+    <position name="a_finger_l" joint="finger_l" kp="50"/>
+    <position name="a_finger_r" joint="finger_r" kp="50"/>
+  </actuator>
+</mujoco>

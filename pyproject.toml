@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ssvep-robot"
+version = "0.1.0"
+description = "SSVEP decoding (CCA, FBCCA, TRCA) on real public EEG, driving a MuJoCo robot arm."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Tommaso Maggiolo" }]
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24", "scipy>=1.10", "mujoco>=3.1", "matplotlib>=3.7"]
+
+[project.optional-dependencies]
+data = ["moabb>=1.1"]
+media = ["imageio>=2.31"]
+dev = ["pytest>=7"]
+
+[tool.setuptools]
+packages = ["ssvep_robot", "ssvep_robot.robot"]
+
+[tool.setuptools.package-data]
+"ssvep_robot.robot" = ["arm.xml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

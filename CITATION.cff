@@ -1,0 +1,64 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it, and cite the dataset and method papers listed in the README."
+title: "ssvep-robot: SSVEP decoding on real EEG driving a simulated robot arm"
+authors:
+  - family-names: Maggiolo
+    given-names: Tommaso
+version: 0.1.0
+date-released: 2026-10-30
+license: MIT
+type: software
+references:
+  - type: article
+    title: "A Comparison Study of Canonical Correlation Analysis Based Methods for Detecting Steady-State Visual Evoked Potentials"
+    authors:
+      - {family-names: Nakanishi, given-names: Masaki}
+      - {family-names: Wang, given-names: Yijun}
+      - {family-names: Wang, given-names: Yu-Te}
+      - {family-names: Jung, given-names: Tzyy-Ping}
+    journal: "PLoS ONE"
+    volume: 10
+    issue: 10
+    year: 2015
+    doi: 10.1371/journal.pone.0140703
+  - type: article
+    title: "Enhancing Detection of SSVEPs for a High-Speed Brain Speller Using Task-Related Component Analysis"
+    authors:
+      - {family-names: Nakanishi, given-names: Masaki}
+      - {family-names: Wang, given-names: Yijun}
+      - {family-names: Chen, given-names: Xiaogang}
+      - {family-names: Wang, given-names: Yu-Te}
+      - {family-names: Gao, given-names: Xiaorong}
+      - {family-names: Jung, given-names: Tzyy-Ping}
+    journal: "IEEE Transactions on Biomedical Engineering"
+    volume: 65
+    issue: 1
+    start: 104
+    end: 112
+    year: 2018
+    doi: 10.1109/TBME.2017.2694818
+  - type: article
+    title: "Filter bank canonical correlation analysis for implementing a high-speed SSVEP-based brain-computer interface"
+    authors:
+      - {family-names: Chen, given-names: Xiaogang}
+      - {family-names: Wang, given-names: Yijun}
+      - {family-names: Gao, given-names: Shangkai}
+      - {family-names: Jung, given-names: Tzyy-Ping}
+      - {family-names: Gao, given-names: Xiaorong}
+    journal: "Journal of Neural Engineering"
+    volume: 12
+    issue: 4
+    year: 2015
+    doi: 10.1088/1741-2560/12/4/046008
+  - type: article
+    title: "Frequency recognition based on canonical correlation analysis for SSVEP-based BCIs"
+    authors:
+      - {family-names: Lin, given-names: Zhonglin}
+      - {family-names: Zhang, given-names: Changshui}
+      - {family-names: Wu, given-names: Wei}
+      - {family-names: Gao, given-names: Xiaorong}
+    journal: "IEEE Transactions on Biomedical Engineering"
+    volume: 53
+    issue: 12
+    year: 2006
+    doi: 10.1109/TBME.2006.886577
