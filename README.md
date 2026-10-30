@@ -25,8 +25,6 @@ flowchart LR
     I -- "user sees the arm,<br/>picks next target" --> A
 ```
 
-## Why I built this
-
 <!-- TODO(Tommaso): dictate 3-4 lines in your own words -->
 
 ## Results
